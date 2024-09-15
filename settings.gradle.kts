@@ -5,13 +5,14 @@ pluginManagement {
         gradlePluginPortal()
     }
 
-//    resolutionStrategy {
-//        eachPlugin {
-//            if (requested.id.id == "com.android.application" || requested.id.id == "com.android.library") {
-//                useVersion("8.5.0")
-//            }
-//        }
-//    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "dagger.hilt.android.plugin") {
+                useModule("com.google.dagger:hilt-android-gradle-plugin:2.51.1")
+            }
+        }
+    }
+
 }
 
 dependencyResolutionManagement {
@@ -20,7 +21,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+
 }
+
 
 rootProject.name = "LocalAPI"
 include(":app")

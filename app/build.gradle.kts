@@ -1,7 +1,8 @@
 plugins {
-    id("com.android.application") // Plugin Android
-    kotlin("android") // Plugin Kotlin cho Android
-    kotlin("kapt")
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -38,10 +39,16 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
+    kapt {
+        correctErrorTypes = true
+    }
+
 }
 
 dependencies {
+    //implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -54,18 +61,21 @@ dependencies {
 
     // Retrofit + Coroutines
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0") // Nếu bạn sử dụng Gson Converter
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.search)
 
     // LiveData
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    kapt(libs.androidx.lifecycle.compiler)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    implementation ("com.google.dagger:hilt-android:2.51.1")
+    kapt ("com.google.dagger:hilt-android-compiler:2.51.1")
+//    implementation ("com.google.dagger:hilt-android:2.38.1")
+//    kapt ("com.google.dagger:hilt-android-compiler:2.38.1")
+//    implementation ("com.squareup:javapoet:1.13.0")
+
+
 }

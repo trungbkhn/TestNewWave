@@ -1,7 +1,7 @@
 
 import com.google.gson.annotations.SerializedName
 
-data class LocalApiModel(
+data class AddressResponse(
     @SerializedName("items")
     val items: List<Item?>?
 ) {

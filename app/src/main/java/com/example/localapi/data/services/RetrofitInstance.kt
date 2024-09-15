@@ -1,16 +1,15 @@
-package com.example.localapi.data
+package com.example.localapi.data.services
 
+import com.example.localapi.Constant.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    private const val BASE_URL = "https://geocode.search.hereapi.com/"
-
-    val api: HereApiService by lazy {
+    val api: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(HereApiService::class.java)
+            .create(ApiService::class.java)
     }
 }

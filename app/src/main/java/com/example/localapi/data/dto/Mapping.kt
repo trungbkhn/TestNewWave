@@ -20,10 +20,10 @@ fun LocationDto.toDomain(): Location {
     return Location(
         id = id,
         title = title,
-        address = address?.toDomain() ?: Address("", "", "", "", "", "", "", "", "", "", ""),
-        position = position?.toDomain() ?: Position(0.0, 0.0),
-        access = access?.map { it.toDomain() } ?: emptyList(),
-        mapView = mapView?.toDomain() ?: MapView(0.0, 0.0, 0.0, 0.0)
+        address = address?.toDomain(),
+        position = position?.toDomain(),
+        access = access?.map { it: PositionDto -> it.toDomain() } ?: emptyList(),
+        mapView = mapView?.toDomain()
     )
 }
 

@@ -1,5 +1,5 @@
 package com.example.localapi.data.dto
 
-data class ApiResponse(
+data class ApiResponseDto(
     val items: List<LocationDto>
 )

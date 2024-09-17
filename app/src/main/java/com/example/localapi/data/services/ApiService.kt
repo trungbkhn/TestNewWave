@@ -1,6 +1,7 @@
 package com.example.localapi.data.services
 
-import com.example.localapi.data.dto.ApiResponse
+
+import com.example.localapi.data.dto.ApiResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,5 +11,5 @@ interface ApiService {
         @Query("q") query: String,
         @Query("limit") limit: Int,
         @Query("apiKey") apiKey: String
-    ): ApiResponse
+    ): ApiResponseDto
 }

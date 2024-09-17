@@ -1,8 +1,8 @@
 package com.example.localapi.domain.use_cases
 
-import android.util.Log
 import com.example.localapi.domain.model.Location
 import com.example.localapi.domain.repository.LocationRepository
+import com.example.localapi.utils.Result
 
 //class SearchLocationsUseCase(private val locationRepository: LocationRepository) {
 //    suspend operator fun invoke(query: String): Result<List<Location>> {

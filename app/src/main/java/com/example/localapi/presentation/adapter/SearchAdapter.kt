@@ -1,5 +1,6 @@
 package com.example.localapi.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
@@ -43,9 +44,9 @@ class SearchAdapter(
 
         fun bind(location: Location, keyword: String) {
             // Làm nổi bật từ khóa trong tiêu đề và địa chỉ
-            binding.titleTextView.text = location.title?.let { highlightKeyword(it, keyword) }
+            binding.titleTextView.text = highlightKeyword(location.title, keyword) ?: ""
             binding.addressTextView.text =
-                location.address?.label?.let { highlightKeyword(it, keyword) }
+                highlightKeyword(location.addressName, keyword) ?: ""
 
             // Khi người dùng nhấn vào địa điểm, thực hiện hành động mở Google Maps
             binding.root.setOnClickListener {
@@ -56,15 +57,19 @@ class SearchAdapter(
         // Phương thức làm nổi bật từ khóa trong văn bản
         private fun highlightKeyword(text: String, keyword: String): SpannableString {
             val spannable = SpannableString(text)
-            val startIndex = text.indexOf(keyword, ignoreCase = true)  // Tìm kiếm không phân biệt hoa thường
-            if (startIndex >= 0) {
-                val endIndex = startIndex + keyword.length
-                spannable.setSpan(
-                    ForegroundColorSpan(Color.YELLOW),  // Màu vàng để làm nổi bật từ khóa
-                    startIndex,
-                    endIndex,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
+
+            // Kiểm tra nếu từ khóa không rỗng và tồn tại trong văn bản
+            if (keyword.isNotBlank()) {
+                val startIndex = text.indexOf(keyword, ignoreCase = true)  // Tìm kiếm không phân biệt hoa thường
+                if (startIndex >= 0) {  // Nếu tìm thấy từ khóa
+                    val endIndex = startIndex + keyword.length
+                    spannable.setSpan(
+                        ForegroundColorSpan(Color.YELLOW),  // Màu vàng để làm nổi bật từ khóa
+                        startIndex,
+                        endIndex,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
             }
             return spannable
         }

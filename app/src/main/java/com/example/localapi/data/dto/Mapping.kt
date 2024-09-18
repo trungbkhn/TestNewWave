@@ -13,6 +13,7 @@ fun LocationDto.toDomainModel(): Location {
     )
 }
 
+
 fun ApiResponseDto.toDomainModel(): List<Location> {
     return items.map { it.toDomainModel() }
 }

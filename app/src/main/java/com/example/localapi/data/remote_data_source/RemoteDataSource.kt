@@ -14,11 +14,14 @@ class RemoteDataSource(private val apiService: ApiService) {
         limit: Int,
         apiKey: String
     ): Result<List<LocationDto>> {
+        if (limit == 0) {
+            return Result.Success(emptyList())
+        }
         return try {
             val response = apiService.searchLocations(query, limit, apiKey)
             val items = response.items
 
-            if (items.isEmpty()) {
+            if (items.isNullOrEmpty()) {
                 Result.Failure(LocationError.NoResults)
             } else {
                 Result.Success(items)
@@ -30,9 +33,37 @@ class RemoteDataSource(private val apiService: ApiService) {
         } catch (e: Exception) {
             Result.Failure(e)
         }
+    }
 
+    suspend fun searchAddressOfArea(
+        query: String,
+        limit: Int,
+        apiKey: String,
+        position: String
+    ): Result<List<LocationDto>> {
+        if (limit == 0) {
+            return Result.Success(emptyList())
+        }
+        return try {
+            val response = apiService.searchLocationOfArea(query, limit, position,apiKey)
+            val items = response.items
+
+            if (items.isNullOrEmpty()) {
+                Result.Failure(LocationError.NoResults)
+            } else {
+                Result.Success(items)
+            }
+
+        } catch (e: IOException) {
+            Result.Failure(LocationError.NetworkError)
+        } catch (e: HttpException) {
+            Result.Failure(LocationError.ApiError(e.code()))
+        } catch (e: Exception) {
+            Result.Failure(e)
+        }
     }
 }
+
 
 
 

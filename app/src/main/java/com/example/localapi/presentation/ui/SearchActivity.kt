@@ -115,7 +115,7 @@ class SearchActivity : AppCompatActivity() {
     private fun setupRecycleView() {
         searchAdapter = SearchAdapter(onItemClicked = { location ->
             if (location.latitude != null && location.longitude != null) {
-                openGoogleMaps(location.latitude, location.longitude)
+                openGoogleMaps(location.latitude, location.longitude, location.addressName)
             } else {
                 Toast.makeText(this, "Invalid location data", Toast.LENGTH_SHORT).show()
             }
@@ -164,8 +164,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
 
-    private fun openGoogleMaps(lat: Double, lng: Double) {
-        val gmmIntentUri = Uri.parse("geo:$lat,$lng?q=$lat,$lng(Location)")
+    private fun openGoogleMaps(lat: Double, lng: Double,title: String) {
+        val gmmIntentUri = Uri.parse("geo:$lat,$lng?q=$lat,$lng($title)")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
         val activities = packageManager.queryIntentActivities(mapIntent, 0)
